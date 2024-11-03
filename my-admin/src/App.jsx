@@ -1,35 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Admin, Resource, ListGuesser } from "react-admin";
+import {PocketBaseProvider} from "./ra-pocketbase";
+import { MemberList,MemberShow } from "./taskMembers";
+import { TaskList } from "./tasks";
 
-function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+const pbProvider = PocketBaseProvider("https://friendly-space-parakeet-979j679gx94qhgr9-8090.app.github.dev/")
 
-export default App
+const App = () => (
+  <Admin 
+  dataProvider={pbProvider.dataProvider}
+  // authProvider={pbProvider.authProvider}
+  >
+    <Resource name="team_members" list={MemberList} show={MemberShow}/>
+    <Resource name="tasks" list={TaskList} />
+  </Admin>
+);
+
+export default App;

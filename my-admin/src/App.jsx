@@ -1,7 +1,7 @@
 import { Admin, Resource, ListGuesser } from "react-admin";
 import {PocketBaseProvider} from "./ra-pocketbase";
 import { MemberList,MemberShow } from "./taskMembers";
-import { TaskList } from "./tasks";
+import { TaskCreate, TaskEdit, TaskList } from "./tasks";
 
 
 const pbProvider = PocketBaseProvider("https://friendly-space-parakeet-979j679gx94qhgr9-8090.app.github.dev/")
@@ -9,10 +9,10 @@ const pbProvider = PocketBaseProvider("https://friendly-space-parakeet-979j679gx
 const App = () => (
   <Admin 
   dataProvider={pbProvider.dataProvider}
-  // authProvider={pbProvider.authProvider}
+  authProvider={pbProvider.authProvider}
   >
     <Resource name="team_members" list={MemberList} show={MemberShow}/>
-    <Resource name="tasks" list={TaskList} />
+    <Resource name="tasks" list={TaskList} edit={TaskEdit} create={TaskCreate}/>
   </Admin>
 );
 
